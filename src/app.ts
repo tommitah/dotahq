@@ -1,15 +1,17 @@
 import express from 'express';
 import cors from 'cors';
-import mountRoutes from './routes';
+import router from './routes';
+import morgan from 'morgan';
 require('express-async-errors');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(morgan('tiny'))
 
 // routes
-mountRoutes(app);
+app.use(router);
 
 app.get('/', (_req, res) => res.status(200).json({ success: true }));
 

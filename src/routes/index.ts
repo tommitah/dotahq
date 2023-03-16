@@ -1,7 +1,7 @@
-import { Express } from 'express-serve-static-core';
-import playerRouter from './player';
+import { Router } from 'express';
+import playerController from '../controllers';
 
-export default function mountRoutes(app: Express) {
-    app.use('/player', playerRouter);
-    // etc
-}
+const router = Router();
+router.get('/player', playerController.getAll);
+
+export default router;
