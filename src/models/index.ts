@@ -1,10 +1,3 @@
-import { Sequelize } from 'sequelize';
+import { Player } from "./player.model";
 
-const sequelize = new Sequelize(
-    {
-        dialect: 'sqlite',
-        storage: '../db/dotahq.sqlite'
-    }
-);
-
-export { sequelize };
+export default Player
