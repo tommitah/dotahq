@@ -6,7 +6,6 @@ const getAll = async (
     res: Response,
     next: NextFunction
 ): Promise<void> => {
-    // TODO: after model is implemented
     try {
         const players = await Player.findAll({ where: {} });
         res.json(players);
@@ -62,6 +61,7 @@ const update = async (
         if (!player)
             res.json({ msg: `Can't find player for id: ${accountId}` });
 
+        // TODO: figure out a way to use this so player is not possibly null
         const newPlayer = await player?.update({ ...req.body });
         res.json(newPlayer);
     } catch (error) {
@@ -88,7 +88,9 @@ const deletePlayer = async (
         // something to fix if we end up using this in automation, though I doubt it.
         const deletedPlayer = await player?.destroy();
         res.json(deletedPlayer);
-    } catch (error) {}
+    } catch (error) {
+        next(error);
+    }
 };
 
 export default {
@@ -96,4 +98,5 @@ export default {
     getByAccountId,
     create,
     update,
+    deletePlayer,
 };
