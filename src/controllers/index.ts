@@ -1,3 +1,1 @@
-import playerController from "./player.controller";
-
-export default playerController
+export { default as PlayerController } from './player.controller'

@@ -1,3 +1,1 @@
-import { Player } from "./player.model";
-
-export default Player
+export { default as PlayerModel } from './player.model'

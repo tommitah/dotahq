@@ -33,7 +33,7 @@ export type PlayerInput = Optional<
 export type PlayerOutput = Required<PlayerAttributes>;
 
 // NOTE: this will define a table in the db
-export class Player
+class PlayerModel
     extends Model<PlayerAttributes, PlayerInput>
     implements PlayerAttributes
 {
@@ -57,7 +57,7 @@ export class Player
     public mmr_estimate!: number;
 }
 
-Player.init(
+PlayerModel.init(
     {
         account_id: {
             type: DataTypes.NUMBER,
@@ -96,3 +96,5 @@ Player.init(
         paranoid: true,
     }
 );
+
+export default PlayerModel;

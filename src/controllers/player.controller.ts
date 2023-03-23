@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import Player from '../models/';
+import { PlayerModel as Player } from '../models';
 
 const getAll = async (
     _req: Request,
@@ -94,9 +94,9 @@ const deletePlayer = async (
 };
 
 export default {
-    getAll,
-    getByAccountId,
     create,
     update,
     deletePlayer,
-};
+    getAll,
+    getByAccountId
+}
