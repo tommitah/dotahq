@@ -97,4 +97,6 @@ PlayerModel.init(
     }
 );
 
+// TODO: model connections
+
 export default PlayerModel;
