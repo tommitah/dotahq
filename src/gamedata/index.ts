@@ -40,5 +40,5 @@ const bundleData = async (): Promise<BundledData> => {
     // guildPlayers.forEach(
     //     async (player: BundlePlayer) => await PlayerInstance.create(player)
     // );
-    console.log(guildPlayers)
+    console.log(guildPlayers);
 })();
