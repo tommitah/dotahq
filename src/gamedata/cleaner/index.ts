@@ -1,1 +1,1 @@
-export { cleanSimpleMatch, cleanGuildPlayers } from './cleaner';
+export { cleanSimpleMatch, cleanGuildPlayers, BundlePlayer } from './cleaner';

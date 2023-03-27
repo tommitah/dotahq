@@ -33,7 +33,7 @@ const cleanSimpleMatch = (
     };
 };
 
-type BundlePlayer = Pick<Player, 'solo_competitive_rank' | 'profile'>;
+export type BundlePlayer = Pick<Player, 'solo_competitive_rank' | 'profile'>;
 const cleanGuildPlayers = (players: Player[]): BundlePlayer[] => {
     return players.map((player: Player) => {
         return {

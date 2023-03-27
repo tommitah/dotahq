@@ -12,7 +12,7 @@ export type SimpleMatch = {
 
 export type SimplePlayer = {
     account_id: number | null;
-    username: string | null;
+    username: string | undefined;
     hero_id: number;
     kills: number;
     kda: number;
