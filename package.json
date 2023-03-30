@@ -1,7 +1,11 @@
 {
     "scripts": {
         "server": "npm run dev-server --prefix server",
-        "client": "npm run start --prefix client"
+        "client": "npm run start --prefix client",
+        "root-deps": "npm install",
+        "server-deps": "cd ./server && npm install && cd ..",
+        "client-deps": "cd ./client && npm install && cd ..",
+        "setup": "npm run root-deps && npm run server-deps && npm run client-deps"
     },
     "dependencies": {}
 }
