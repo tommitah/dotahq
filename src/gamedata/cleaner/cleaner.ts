@@ -1,5 +1,7 @@
 import {
+    MmrEstimate,
     Player,
+    Profile,
     RawMatch,
     RawPlayer,
     SimpleMatch,
@@ -33,12 +35,31 @@ const cleanSimpleMatch = (
     };
 };
 
-export type BundlePlayer = Pick<Player, 'solo_competitive_rank' | 'profile'>;
-const cleanGuildPlayers = (players: Player[]): BundlePlayer[] => {
+// export type CleanPlayer = Pick<Player, 'solo_competitive_rank' | 'profile'>;
+export type CleanPlayer = Omit<Player, 'profile' | 'mmr_estimate'> & Profile;
+const cleanGuildPlayers = (players: Player[]): CleanPlayer[] => {
     return players.map((player: Player) => {
+        const profile = player.profile;
         return {
             solo_competitive_rank: player.solo_competitive_rank,
-            profile: player.profile
+            leaderboard_rank: player.leaderboard_rank,
+            competitive_rank: player.competitive_rank,
+            rank_tier: player.rank_tier,
+            account_id: profile.account_id,
+            name: profile.name,
+            personaname: profile.personaname,
+            plus: profile.plus,
+            avatar: profile.avatar,
+            cheese: profile.cheese,
+            status: profile.status,
+            steamid: profile.steamid,
+            avatarfull: profile.avatarfull,
+            avatarmedium: profile.avatarmedium,
+            last_login: profile.last_login,
+            profileurl: profile.profileurl,
+            is_subscriber: profile.is_subscriber,
+            is_contributor: profile.is_contributor,
+            loccountrycode: profile.loccountrycode,
         };
     });
 };

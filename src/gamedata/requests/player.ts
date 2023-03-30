@@ -4,7 +4,7 @@ import { defaultRequestConfig } from './config';
 
 export const makePlayerRequest = async (
     accountId: number
-): Promise<[number | null, Player]> => {
+): Promise<[number, Player]> => {
     const matchRequestConfig: AxiosRequestConfig = {
         ...defaultRequestConfig,
         url: `/players/${accountId}`,

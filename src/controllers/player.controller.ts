@@ -20,9 +20,9 @@ const getByAccountId = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        const { accountId } = req.params;
+        const { id } = req.params;
         const player = await Player.findOne({
-            where: { account_id: accountId },
+            where: { id },
         });
 
         res.json(player);
@@ -53,13 +53,13 @@ const update = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        const accountId = req.params;
+        const id = req.params;
         const player = await Player.findOne({
-            where: { account_id: accountId },
+            where: { id },
         });
 
         if (!player)
-            res.json({ msg: `Can't find player for id: ${accountId}` });
+            res.json({ msg: `Can't find player for id: ${id}` });
 
         // TODO: figure out a way to use this so player is not possibly null
         const newPlayer = await player?.update({ ...req.body });
@@ -76,13 +76,13 @@ const deletePlayer = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        const accountId = req.params;
+        const id = req.params;
         const player = await Player.findOne({
-            where: { account_id: accountId },
+            where: { id },
         });
 
         if (!player)
-            res.json({ msg: `Can't find player for id: ${accountId}` });
+            res.json({ msg: `Can't find player for id: ${id}` });
 
         // NOTE: player? is used since typescript notes that this might be null
         // something to fix if we end up using this in automation, though I doubt it.

@@ -1,99 +1,48 @@
 import { db as dbConnection } from '../db';
-import { DataTypes, Model, Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
+import { Player } from '../gamedata/types/index';
 
-// TODO: figure out what to do about the null columns fetch-side, these data types have to be cleaned
-// Good chance that none can be required: only players with an account would have any of these
-type PlayerAttributes = {
-    // leaderboard_rank: null;
-    account_id: number;
-    personaname: string;
-    // name: null;
-    plus?: boolean;
-    cheese?: number;
-    steamid: string;
-    avatar: string;
-    avatarmedium?: string;
-    avatarfull?: string;
-    profileurl?: string;
-    last_login?: Date;
-    loccountrycode?: string;
-    // status: null;
-    is_contributor?: boolean;
-    is_subscriber?: boolean;
-    rank_tier?: number;
-    // solo_competitive_rank: null;
-    competitive_rank?: number;
-    mmr_estimate?: number;
-};
-
-export type PlayerInput = Optional<
-    PlayerAttributes,
-    'account_id' | 'personaname' | 'steamid' | 'avatar'
->;
-export type PlayerOutput = Required<PlayerAttributes>;
+type PlayerAttributes = Player & { id: number };
 
 // NOTE: this will define a table in the db
-class PlayerModel
-    extends Model<PlayerAttributes, PlayerInput>
-    implements PlayerAttributes
-{
-    public account_id!: number;
-    public personaname!: string;
-    public plus!: boolean;
-    public cheese!: number;
-    public steamid!: string;
-    public avatar!: string;
-    public avatarmedium!: string;
-    public avatarfull!: string;
-    public profileurl!: string;
-    public last_login!: Date;
-    public loccountrycode!: string;
-    // status: null;
-    public is_contributor!: boolean;
-    public is_subscriber!: boolean;
-    public rank_tier!: number;
-    // solo_competitive_rank: null;
-    public competitive_rank!: number;
-    public mmr_estimate!: number;
+class PlayerModel extends Model<PlayerAttributes> {
+    public id!: number;
 }
 
 PlayerModel.init(
     {
-        account_id: {
+        id: {
             type: DataTypes.NUMBER,
             primaryKey: true,
-            allowNull: false,
         },
-        personaname: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        avatar: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        steamid: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        plus: { type: DataTypes.BOOLEAN },
-        cheese: { type: DataTypes.NUMBER },
+        leaderboard_rank: { type: DataTypes.NUMBER },
+        competitive_rank: { type: DataTypes.NUMBER },
         rank_tier: { type: DataTypes.NUMBER },
-        avatarfull: { type: DataTypes.STRING },
-        avatarmedium: { type: DataTypes.STRING },
-        last_login: { type: DataTypes.DATE }, // or string?
-        profileurl: { type: DataTypes.STRING },
-        mmr_estimate: { type: DataTypes.NUMBER }, // NOTE: this is actually a nested object!
-        is_subscriber: { type: DataTypes.BOOLEAN },
-        is_contributor: { type: DataTypes.BOOLEAN },
-        loccountrycode: { type: DataTypes.STRING },
-        // TODO: all the commented rows
+        solo_competitive_rank: { type: DataTypes.NUMBER },
+        // here's to hoping that the profile and mmr_estimate are somewhat typesafe this way...
+        // data modeling hard....
+        profile: { type: DataTypes.JSONB },
+        mmr_estimate: { type: DataTypes.JSONB },
     },
     {
         timestamps: true,
         tableName: 'player',
         sequelize: dbConnection,
         paranoid: true,
+        // hooks: {
+        //     // NOTE: One way to possibly solve the issue with type assignment from `Player` would be just using
+        //     // a id = 0 on the data we get from the API, no idea if that's a good idea though, at least I hate the idea of it.
+        //     // OR, we figure out how to expand the Profile and MmrEstimate types to Player and refactor the `cleaner`.
+        //     // might just make the most sense, this way account_id could be the primaryKey.
+        //     // This would mean that the player request would probably have to parse the data some extra.
+        //     // OR we might use the tuple here (I KNEW IT), using the Player type + the account_id returned from the request!
+        //
+        //     beforeValidate: (instance, _options) => {
+        //         if (!instance.id) {
+        //             instance.id = uuidv4();
+        //         }
+        //     }
+        // }
     }
 );
 

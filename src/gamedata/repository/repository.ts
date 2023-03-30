@@ -5,7 +5,7 @@ import { RawMatch, Player } from '../types';
 // Generics?
 interface Repository {
     getMatchData(id: number): Promise<[number, RawMatch]>;
-    getPlayerData(id: number): Promise<[number | null, Player]>;
+    getPlayerData(id: number): Promise<[number, Player]>;
 }
 
 export default function createRepository(): Repository {
