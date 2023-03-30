@@ -13,6 +13,7 @@ export const makePlayerRequest = async (
 
     try {
         const res = await axios.request(matchRequestConfig);
+        // TODO: prosessoi res.data erilliseen tyyppiin
         return [accountId, res.data as Player];
     } catch (error) {
         console.error(error);
