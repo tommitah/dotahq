@@ -29,20 +29,6 @@ PlayerModel.init(
         tableName: 'player',
         sequelize: dbConnection,
         paranoid: true,
-        // hooks: {
-        //     // NOTE: One way to possibly solve the issue with type assignment from `Player` would be just using
-        //     // a id = 0 on the data we get from the API, no idea if that's a good idea though, at least I hate the idea of it.
-        //     // OR, we figure out how to expand the Profile and MmrEstimate types to Player and refactor the `cleaner`.
-        //     // might just make the most sense, this way account_id could be the primaryKey.
-        //     // This would mean that the player request would probably have to parse the data some extra.
-        //     // OR we might use the tuple here (I KNEW IT), using the Player type + the account_id returned from the request!
-        //
-        //     beforeValidate: (instance, _options) => {
-        //         if (!instance.id) {
-        //             instance.id = uuidv4();
-        //         }
-        //     }
-        // }
     }
 );
 

@@ -22,7 +22,6 @@ const bundleData = async (): Promise<BundledData> => {
             91481212, 39365657, 142134059, 68461480, 136141238, 63348190,
             116337892, 28817346, 66805719, 141324782,
         ].map(async (accountId) => {
-            // const [, player] = await getPlayerData(accountId);
             return await getPlayerData(accountId);
         })
     );
