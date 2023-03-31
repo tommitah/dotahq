@@ -5,4 +5,4 @@ The purpose of this app is to display match and player data queried from OpenDot
 
 ## Roadmap/Todo
 1. Client side app, curated feed for the whole guild and each player
-more will come...
+2. Interactivity (user auth?/commenting)

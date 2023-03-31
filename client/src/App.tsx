@@ -1,13 +1,16 @@
-import { useState } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { PlayerFeed } from './components/PlayerFeed';
 
+const queryClient = new QueryClient();
+
+// NOTE: <Router> here
 function App() {
-    const [count, setCount] = useState(0);
-
     return (
-        <div className="App">
-            Hello world! {count}
-            <button onClick={() => setCount(count + 1)}>count!</button>
-        </div>
+        <QueryClientProvider client={queryClient}>
+            <div className="App">
+                <PlayerFeed></PlayerFeed>
+            </div>
+        </QueryClientProvider>
     );
 }
 
