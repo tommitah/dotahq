@@ -20,7 +20,6 @@ export const makeMatchRequest = async (matchId: number): MatchPromise => {
 };
 
 // Something like this to get a 'digest' or feed.
-
 export type RecentMatchesPromise = Promise<[number | null, RawMatch[]]>;
 export const makeRecentMatchesRequest = async (
     accountId: number | null

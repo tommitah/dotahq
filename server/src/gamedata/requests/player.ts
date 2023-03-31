@@ -1,12 +1,9 @@
 import axios, { AxiosRequestConfig } from 'axios';
-// import { CleanPlayer, toCleanPlayer } from '../cleaner/cleaner';
 import { RawPlayer } from '../types';
 import { defaultRequestConfig } from './config';
 
 export type PlayerPromise = Promise<[number, RawPlayer]>;
-export const makePlayerRequest = async (
-    accountId: number
-): Promise<[number, RawPlayer]> => {
+export const makePlayerRequest = async (accountId: number): PlayerPromise => {
     const matchRequestConfig: AxiosRequestConfig = {
         ...defaultRequestConfig,
         url: `/players/${accountId}`,
