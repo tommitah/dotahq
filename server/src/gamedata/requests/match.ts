@@ -2,9 +2,8 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { RawMatch } from '../types';
 import { defaultRequestConfig, recentMatchesRequestConfig } from './config';
 
-export const makeMatchRequest = async (
-    matchId: number
-): Promise<[number, RawMatch]> => {
+export type MatchPromise = Promise<[number, RawMatch]>;
+export const makeMatchRequest = async (matchId: number): MatchPromise => {
     const matchRequestConfig: AxiosRequestConfig = {
         ...defaultRequestConfig,
         url: `/matches/${matchId}`,
@@ -21,9 +20,11 @@ export const makeMatchRequest = async (
 };
 
 // Something like this to get a 'digest' or feed.
+
+export type RecentMatchesPromise = Promise<[number | null, RawMatch[]]>;
 export const makeRecentMatchesRequest = async (
     accountId: number | null
-): Promise<[number | null, RawMatch[]]> => {
+): RecentMatchesPromise => {
     const matchRequestConfig: AxiosRequestConfig = {
         ...recentMatchesRequestConfig,
         url: `/players/${accountId}/recentMatches`,

@@ -1,11 +1,16 @@
-import { makeMatchRequest, makePlayerRequest } from '../requests';
-import { RawMatch, Player } from '../types';
+import {
+    makeMatchRequest,
+    makePlayerRequest,
+    PlayerPromise,
+    MatchPromise,
+} from '../requests';
+import { RawPlayer } from '../types';
 
 // TODO: Add hooks for all requests
 // Generics?
 interface Repository {
-    getMatchData(id: number): Promise<[number, RawMatch]>;
-    getPlayerData(id: number): Promise<[number, Player]>;
+    getMatchData(id: number): MatchPromise;
+    getPlayerData(id: number): Promise<[number, RawPlayer]>;
 }
 
 export default function createRepository(): Repository {

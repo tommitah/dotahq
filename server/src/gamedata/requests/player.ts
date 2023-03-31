@@ -1,10 +1,12 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { Player } from '../types';
+// import { CleanPlayer, toCleanPlayer } from '../cleaner/cleaner';
+import { RawPlayer } from '../types';
 import { defaultRequestConfig } from './config';
 
+export type PlayerPromise = Promise<[number, RawPlayer]>;
 export const makePlayerRequest = async (
     accountId: number
-): Promise<[number, Player]> => {
+): Promise<[number, RawPlayer]> => {
     const matchRequestConfig: AxiosRequestConfig = {
         ...defaultRequestConfig,
         url: `/players/${accountId}`,
@@ -13,8 +15,7 @@ export const makePlayerRequest = async (
 
     try {
         const res = await axios.request(matchRequestConfig);
-        // TODO: prosessoi res.data erilliseen tyyppiin
-        return [accountId, res.data as Player];
+        return [accountId, res.data as RawPlayer];
     } catch (error) {
         console.error(error);
         throw error;

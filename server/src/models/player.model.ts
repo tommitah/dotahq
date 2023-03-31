@@ -1,16 +1,13 @@
 import { db as dbConnection } from '../db';
 import { DataTypes, Model } from 'sequelize';
-import { Player } from '../gamedata/types';
+import { CleanPlayer } from '../gamedata/cleaner';
 
-type PlayerAttributes = Player & { id: number };
-
-class PlayerModel extends Model<PlayerAttributes> {
-    public id!: number;
-}
+type PlayerAttributes = CleanPlayer
+class PlayerModel extends Model<PlayerAttributes> {}
 
 PlayerModel.init(
     {
-        id: {
+        account_id: {
             type: DataTypes.NUMBER,
             primaryKey: true,
         },
@@ -18,10 +15,21 @@ PlayerModel.init(
         competitive_rank: { type: DataTypes.NUMBER },
         rank_tier: { type: DataTypes.NUMBER },
         solo_competitive_rank: { type: DataTypes.NUMBER },
-        // here's to hoping that the profile and mmr_estimate are somewhat typesafe this way...
-        // data modeling hard....
-        profile: { type: DataTypes.JSONB },
-        mmr_estimate: { type: DataTypes.JSONB },
+        personaname: { type: DataTypes.STRING },
+        name: { type: DataTypes.STRING },
+        loccountrycode: { type: DataTypes.STRING },
+        is_contributor: { type: DataTypes.BOOLEAN },
+        is_subscriber: { type: DataTypes.BOOLEAN },
+        avatarmedium: { type: DataTypes.STRING },
+        profileurl: { type: DataTypes.STRING },
+        last_login: { type: DataTypes.DATE }, //string?
+        avatarfull: { type: DataTypes.STRING },
+        estimate: { type: DataTypes.NUMBER },
+        steamid: { type: DataTypes.STRING },
+        status: { type: DataTypes.STRING },
+        cheese: { type: DataTypes.NUMBER },
+        avatar: { type: DataTypes.STRING },
+        plus: { type: DataTypes.BOOLEAN }
     },
     {
         timestamps: true,
