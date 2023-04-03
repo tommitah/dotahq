@@ -1,9 +1,7 @@
-import { PlayerFeed } from "../components/PlayerFeed";
+import { PlayerFeed } from '../components/PlayerFeed';
 
 const Players = () => {
-    return (
-    <PlayerFeed></PlayerFeed>
-    )
-}
+    return <PlayerFeed></PlayerFeed>;
+};
 
 export default Players;

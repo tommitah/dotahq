@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Route, Routes } from 'react-router-dom';
-import { NavBar } from './components/NavBar'
+import { NavBar } from './components/NavBar';
 import Home from './pages/Home';
 import Players from './pages/Players';
 

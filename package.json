@@ -7,8 +7,5 @@
         "client-deps": "cd ./client && npm install && cd ..",
         "setup": "npm run root-deps && npm run server-deps && npm run client-deps",
         "db-populate": "cd ./server && npm run populate && cd .."
-    },
-    "dependencies": {
-        "react-router-dom": "^6.10.0"
     }
 }

@@ -2,7 +2,7 @@ import { db as dbConnection } from '../db';
 import { DataTypes, Model } from 'sequelize';
 import { CleanPlayer } from '../gamedata/cleaner';
 
-type PlayerAttributes = CleanPlayer
+type PlayerAttributes = CleanPlayer;
 class PlayerModel extends Model<PlayerAttributes> {}
 
 PlayerModel.init(
@@ -29,7 +29,7 @@ PlayerModel.init(
         status: { type: DataTypes.STRING },
         cheese: { type: DataTypes.NUMBER },
         avatar: { type: DataTypes.STRING },
-        plus: { type: DataTypes.BOOLEAN }
+        plus: { type: DataTypes.BOOLEAN },
     },
     {
         timestamps: true,
