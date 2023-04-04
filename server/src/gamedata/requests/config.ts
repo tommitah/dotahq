@@ -12,7 +12,7 @@ const recentMatchesRequestConfig: AxiosRequestConfig = {
     baseURL: envConfig.SERVER_URL,
     params: {
         key: `api_key=${envConfig.API_KEY}`,
-        limit: 'limit=50',
+        limit: 'limit=20',
     },
 };
 
