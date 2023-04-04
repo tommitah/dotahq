@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 import { useQuery } from 'react-query';
 
@@ -25,25 +26,38 @@ type PlayerProps = {
 };
 
 export const PlayerFeed = () => {
-    const getPlayers = async (): Promise<PlayerProps[]> => {
-        const res = await fetch('https://localhost:9000/players');
-        return res.json();
-    };
+    const getPlayers = async (): Promise<PlayerProps[]> =>
+        axios
+            .get('http://localhost:9000/player')
+            .then((response) => response.data);
 
-    const { data, error, isLoading } = useQuery('players', getPlayers);
+    const { data, error, isLoading } = useQuery({
+        queryKey: ['players'],
+        queryFn: getPlayers,
+    });
 
     if (error) return <div>Request Failed</div>;
     if (isLoading) return <div>Loading...</div>;
 
     return (
         <div>
-            {data?.map((player: PlayerProps) => {
-                return <Player {...player}></Player>;
-            })}
+            <ul>
+                {data?.map((player: PlayerProps) => {
+                    return (
+                        <li key={player.account_id}>
+                            <Player {...player}></Player>
+                        </li>
+                    );
+                })}
+            </ul>
         </div>
     );
 };
 
 const Player: React.FC<PlayerProps> = (props) => {
-    return <div>{props.personaname}</div>;
+    return (
+        <div>
+            {props.personaname}
+        </div>
+    );
 };
