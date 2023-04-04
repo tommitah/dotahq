@@ -29,14 +29,34 @@ export const toCleanPlayer = (rawPlayer: RawPlayer): CleanPlayer => {
     };
 };
 
-export type CleanMatch = Omit<RawMatch, 'players'> & {
-    players: CleanPlayer[];
+// NOTE: All the omitted values had `null` values from the json-type transform
+export type CleanMatch = Omit<
+    RawMatch,
+    | 'players'
+    | 'objectives'
+    | 'picks_bans'
+    | 'radiant_xp_adv'
+    | 'radiant_team_id'
+    | 'radiant_gold_adv'
+    | 'skill'
+    | 'teamfights'
+    | 'version'
+    | 'dire_team_id'
+    | 'draft_timings'
+    | 'chat'
+    | 'cosmetics'
+> & {
+    players: number[];
 };
 export const toCleanMatch = (rawMatch: RawMatch): CleanMatch => {
     const { players, ...matchData } = rawMatch;
 
+    // console.log(players);
+    // console.log(matchData);
+
     return {
         ...matchData,
-        players: players.map(toCleanPlayer),
+        // players: players.map((player: RawPlayer) => player.profile.account_id),
+        players: [],
     };
 };

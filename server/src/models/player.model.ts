@@ -1,8 +1,9 @@
 import { db as dbConnection } from '../db';
 import { DataTypes, Model } from 'sequelize';
 import { CleanPlayer } from '../gamedata/cleaner';
+import MatchModel from './match.model';
 
-type PlayerAttributes = CleanPlayer;
+type PlayerAttributes = CleanPlayer & { recent_matches: number[] };
 class PlayerModel extends Model<PlayerAttributes> {}
 
 PlayerModel.init(
@@ -30,6 +31,8 @@ PlayerModel.init(
         cheese: { type: DataTypes.NUMBER },
         avatar: { type: DataTypes.STRING },
         plus: { type: DataTypes.BOOLEAN },
+        // NOTE: List of match id's
+        recent_matches: { type: DataTypes.ARRAY(DataTypes.NUMBER) }
     },
     {
         timestamps: true,
@@ -39,6 +42,7 @@ PlayerModel.init(
     }
 );
 
-// TODO: model connections
+// TODO: model connections?
+// PlayerModel.hasMany(MatchModel)
 
 export default PlayerModel;

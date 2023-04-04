@@ -1,5 +1,8 @@
 import { createRepository } from './repository';
-import { PlayerModel as PlayerInstance } from '../models';
+import {
+    PlayerModel as PlayerInstance,
+    MatchModel as MatchInstance,
+} from '../models';
 import { CleanPlayer, toCleanPlayer } from './cleaner';
 import { CleanMatch, toCleanMatch } from './cleaner/cleaner';
 
@@ -8,9 +11,6 @@ const GUILD_PLAYERS = [
     28817346, 66805719, 141324782,
 ];
 
-// NOTE: This will be a module that is run once, and then forgotten about
-// eg. there will be a manual script to run that updates the db with data from this module
-// we could also have timestamps on when this was run and check against it when the app is run?
 type BundledData = {
     guildPlayers: CleanPlayer[];
     guildRecentMatches: CleanMatch[];
@@ -19,7 +19,6 @@ type BundledData = {
 const bundleData = async (): Promise<BundledData> => {
     const { getRecentMatchData, getPlayerData } = createRepository();
 
-    // Molehill mobsters:
     const players = await Promise.all(
         GUILD_PLAYERS.map(async (accountId: number) => {
             const [, rawPlayer] = await getPlayerData(accountId);
@@ -38,15 +37,25 @@ const bundleData = async (): Promise<BundledData> => {
 
     return {
         guildPlayers: players,
-        guildRecentMatches: recentMatches.flat(),
+        // This 'flattens' the array of arrays and removes duplicate matches
+        guildRecentMatches: recentMatches
+            .flat()
+            .filter(
+                (obj: CleanMatch, index: number, self: CleanMatch[]) =>
+                    index === self.findIndex((t) => t.match_id === obj.match_id)
+            ),
     };
 };
 
-// NOTE: Db call here to save the players to db
 (async () => {
-    const { guildPlayers } = await bundleData();
-    guildPlayers.forEach(
-        async (player: CleanPlayer) => await PlayerInstance.create(player)
+    const { guildPlayers, guildRecentMatches } = await bundleData();
+    // guildPlayers.forEach(
+    //     async (player: CleanPlayer) => await PlayerInstance.create(player)
+    // );
+
+    // TODO: Add recent matches as a property to PlayerModel?
+    guildRecentMatches.forEach(
+        async (match: CleanMatch) => await MatchInstance.create(match)
     );
-    console.log(guildPlayers);
+    // console.log(guildRecentMatches);
 })();
