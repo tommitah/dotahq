@@ -56,8 +56,8 @@ export const PlayerFeed = () => {
 
 const Player: React.FC<PlayerProps> = (props) => {
     return (
-        <div>
+        <>
             {props.personaname}
-        </div>
+        </>
     );
 };
