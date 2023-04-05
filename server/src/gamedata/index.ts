@@ -54,6 +54,8 @@ const bundleData = async (): Promise<BundledData> => {
     // );
 
     // TODO: Add recent matches as a property to PlayerModel?
+    // So what's happening right now is: we're querying the recentMatches by accountId,
+    // which is resulting in data that DOESN'T match `RawMatch`
     guildRecentMatches.forEach(
         async (match: CleanMatch) => await MatchInstance.create(match)
     );

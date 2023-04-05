@@ -1,7 +1,6 @@
 import { db as dbConnection } from '../db';
 import { DataTypes, Model } from 'sequelize';
 import { CleanPlayer } from '../gamedata/cleaner';
-import MatchModel from './match.model';
 
 type PlayerAttributes = CleanPlayer & { recent_matches: number[] };
 class PlayerModel extends Model<PlayerAttributes> {}
